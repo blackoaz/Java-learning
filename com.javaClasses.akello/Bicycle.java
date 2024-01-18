@@ -38,8 +38,10 @@ public class Bicycle {
     public static void main(String[] args) {
 
         Bicycle bike1 = new Bicycle(20, "mountain");
+        System.out.println(bike1.getSpeed());
+        bike1.setSpeed(60);
         System.out.println(bike1);
-        
+
     }
 
 
