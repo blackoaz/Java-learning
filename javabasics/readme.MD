@@ -47,4 +47,43 @@ Explicit Casting has to be done when the source type has a larger range than the
 -> When casting a floating point primitives (float, double) to whole number primitives the number is rounded down.
 
 ### Basic Numeric Promotion
+    char char1 = 1, char2 = 2;
+    short short1 = 1, short2 = 2;
+    int int1 = 1, int2 = 2;
+    float float1 = 1.0f, float2 = 2.0f;
+
+    // char1 = char1 + char2; // Error cannot convert from int to char.
+    // short1 = short1 + short2 // Error cannot convert from int to char.
+    int1 = char1 + char2 // char is promoted to int.
+    int1 = short1 + short2 //short is promoted to int.
+    int1 = char1 + short1 // both short and int is promoted to int.
+    float1 = float1 + short1 // short is promoted to float
+
+
+### Non-Numeric Primitive Casting
+
+ - The boolean type cannot be cast from/to any other primitive type.
+ - A char can be cast to/from any numeric type by using the code points mapping specified by Unicode.
+ - A char is represented in memory as an unsigned 16-bit integer value(2-bytes), so casting to a bit will drop 8-bits(safe for ASCII characters).
+ - The utility methods of the character class use int(4 bytes) to transfer to/from code-point values, but a short (2 bytes) would also suffice for storing s Unicode code-point.
+
+ ```
+ int badInt = (int) true // Compiler Error: Incompatible types
+ char char1 = (char) 65; // A
+ byte byte1 = (byte) 'A'; // 65
+ short short1 = (short) 'A'; // 65
+ int int1 = (int) 'A'; // 65
+ 
+ char char2 = (char) 8253; // ?
+ byte byte2 = (byte) '?' // 61 (Truncated code-point into ASCII range) 
+ short short2 = (short) '?' // 8253
+ int int2 = (int) '?' // 8253
+ ```
+
+### Object Casting
+
+As with primitives, objects can be cast both explicitly and implicitly.
+Implicit casting happens when the source type extends or implements the target type(casting to a super class or an interface).
+Explicit casting has to be done when the source type 
+
 
