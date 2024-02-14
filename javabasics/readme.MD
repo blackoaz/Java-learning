@@ -84,6 +84,70 @@ Explicit Casting has to be done when the source type has a larger range than the
 
 As with primitives, objects can be cast both explicitly and implicitly.
 Implicit casting happens when the source type extends or implements the target type(casting to a super class or an interface).
-Explicit casting has to be done when the source type 
+Explicit casting has to be done when the source type is extended or implemented by the target type(casting to a subtype). This can produce a runtime exception(classCastException) when the object being cast is not of the target type(or targets subtype).
 
+```java
+Float floatVar = new Float(42.0f);
+Number n = floatVar;   // Implicit: Float implements number
+Float floatVar2 = (Float) n; // Explicit
+Double doubleVar = (Double) n; // ThrowsException (the object is not Double)
+```
+// ### Testing if An Object can be Cast Using instanceof
+
+# GETTERS AND SETTERS
+### Using a Setter or getter to Implement constraint
+
+Setters and Getters allow for an object to contain private variables which can be accessed and change with restrictions.
+
+```java
+public class Person {
+    private String name;
+    
+    public String getName (){
+        return this.name;
+        
+    }
+    public void setName(String name){
+        if( name != null && name.length() > 2){
+            this.name = name;
+        }
+
+    }
+}
+```
+
+### Importance of Getters and Setters
+- Getters and setters allows you to interact with a class internal nature as it dictates.
+- Getters and setters makes access synchronization simple.
+
+### ADDING GETTERS AND SETTERS
+Encapsulation is a basic concept in Object Oriented-Programming, it's about wrapping data and code as a single unit.
+It's a good practice to declare the variables as private and the access them through getters and setters to view and/or modify.
+With private variables, they cannot be accessed from outside the class. Hence they are protected from unauthorized access. But if you want to view or modify them, you can use getters and setters.
+
+# REFERENCE DATA TYPES
+### Dereferencing
+
+Dereferencing happens with the . (dot) operator.
+
+```java
+Object obj = new Object();
+String text = obj.toString(); // 'obj' is dereferenced
+```
+Dereferencing  follows the memory address stored in a reference, to the place in memory where the actual object resides.
+When an object has been found, the requested method is called (toString in this case).
+When a reference has the value null, dereferencing results in a NullPointerException.
+
+### Instantiating a Reference Type
+````java
+Object obj = new Object(); 
+````
+- Object is  reference type
+- obj is the variable in which to store the new reference
+- Object() is the call to constructor of ana Object
+What Happens:
+- space in memory is located for the object
+- The constructor Object() is called to initialize that memory space
+- The memory address is stored in the obj.,so that it reference the newly  created object
+This is different in primitives where int i = 10, value 10 is stored in i.
 
