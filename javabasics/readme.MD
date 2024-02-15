@@ -310,3 +310,240 @@ From java 6, it is possible to express floating point literals in hexadecimal. T
     0xff.0p19 // this 255.0 * 2^19 ('double')
 
 # PRIMITIVE DATA TYPES
+
+The 8 primitive data types **byte**, **short**, **int** **long**, **char**, **boolean**, **float** and **double** are the types that store most raw numericals data in java programs.
+
+### The char primitive
+A char can store a single 16-bit Unicode character.
+
+```java
+char myChar = 'u';
+char myChar2 = '5';
+char myChar3 = 65; // myChar3 == 'A'
+```
+It has a minimum value of \u0000(0 in the decimal representation, also called the null character) and a maximum value of \uffff(65,535).
+The default value of char is \u0000
+
+    char defaultChar; // defaultChar == \u0000
+
+In order to define a char ' value an escape sequence (chara cter preceded by a a backlash) has to be used;
+
+    char singleQuote = '\'';
+    // other escape sequences
+    char tab = '\t';
+    char backspace = '\b';
+    char newline = '\n';
+    char carriageReturn = '\r';
+    char formfeed = '\f';
+    char singleQuote = '\''
+    char doubleQuote = '\""' // escaping is redundant as '"' would also work, however still allowed
+    char unicodeChar = '\uXXXX' //represents a unicode value or character
+
+You can declare a char of any unicode character
+
+    char heart = '\u2764'; 
+
+### Primitive types cheat sheet
+    type   representation range default
+    ____________________________________
+    bolean | n/a | false and true | false
+
+    byte | 8-bits signed | -27 to 27-1 |  0
+
+    short | 16-bit signed | -215 to 215-1 | 0
+                    |  -32,768 t0 +32,767|
+
+    int | 32-bit signed | -231 to 231 - 1 | 0
+    
+        |-2,147,483,648 to +2,147,483,647  |
+    long| 64-bit signed | -263 to 263-1 | 0L
+    | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807|
+
+    |float |32-bit floating point| 1.401298464e-45 to 3.402823466e+38 (positive or negative) |0.0F |
+
+    |double| 64-bit floating point|4.94065645841246544e-324d to 1.79769313486231570e+308d(positive or negative)|0.0D
+
+    |char | 16-bit unsigned |0 to 216 - 1| 0
+          | 0 to 65,535|
+
+Notes:
+1. The Java Language Specification mandates that signed integral types (byte through long) use binary twos- complement representation, and the floating point types use standard IEE 754 binary floating point representations.
+2. Java 8 and later provide methods to perform unsigned arithmetic operations on int and long. While these methods allow a program to treat values of the respective types as unsigned, the types remain signed types.
+3. The smallest floating point shown above are subnormal; i.e. they have less precision than a normal value. The smallest normal numbers are 1.175494351e−38 and 2.2250738585072014e−308
+4. A char conventionally represents a Unicode / UTF-16 code unit.
+5. Although a boolean contains just one bit of information, its size in memory varies depending on the Java
+Virtual Machine implementation
+
+### The float Primitive
+
+A float is a single precision 32-bit IEEE 754  floating point number. By default, decimals are interpreted as doubles. To create a float, an f is appended to the decimal literal.
+
+```java
+double doubleExample = 0.5; // without 'f' after digits = double
+float floatExample = 0.5f; // with 'f' = float
+float myFloat = 92.7f; // this is a float
+float positiveFloat = 89.3f; // it can be positive
+float negativeFloat = -89.3f; // or negative 
+float integerFloat = 43.0f; //can be a whole numebr
+float underZeroFloat = 0.0549f; // fractional value less than zero
+```
+
+floats handle the five common arithmetical operations: addition, subtraction, division, multiplication and modulus
+
+*while using float is fine for most applications, neither float nor double should be used to store exact representations of decimal numbers (like monetary amounts) or numbers where higher precision is required instead, the BigDecimal class should be used*
+
+**Note**: Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NaN are float values. NaN stands for results of operations that cannot be determined, such as dividing 2 infinite values. Furthermore 0f and -0f are different, but == yields true:
+
+```java
+float f1 = 0f;
+float f2 = -0f;
+System.out.println(f1 == f2); // true
+System.out.println(1f / f1); // Infinity
+System.out.println(1f / f2); // -Infinity System.out.println(Float.POSITIVE_INFINITY / Float.POSITIVE_INFINITY); // NaN
+```
+
+### The int primitive
+
+A primitive data type such as int holds value directly into the variable that is using it, meanwhile a variable that was declared using Integer holds a reference to the value.
+
+By default, int is a 32-bit signed integer.It can store minimum value of -231 and a maximum value  of 231-1.
+
+```java
+int example = -42; int myInt = 284;
+int anotherInt = 73;
+int addedInts = myInt + anotherInt; // 284 + 73 = 357
+int subtractedInts = myInt - anotherInt; // 284 - 73 = 211
+```
+
+If you need to store a number outside of this range, long should be used instead. Exceeding the value range of int leads to an integer overflow, causing the value exceeding the range to be added to the opposite side of the range(positive becomes negative and vice versa). The value is((value - min_value) % RANGE) + MIN_VALUE, or ((value + 2147483648) % 4294967296) - 21447483648
+
+```java
+int demo = 2147483647; //maximum positive
+ integer System.out.println(demo); //prints 2147483647 
+ demo = demo + 1; //leads to an integer overflow 
+ System.out.println(demo); //prints -2147483648
+```
+
+The maximum and minimum value of int can be found at:
+```java
+int high = Integer.MAX_VALUE; // high == 2147483647 
+int low = Integer.MIN_VALUE; // low == -2147483648
+```
+
+The default value of int is 0.
+
+### Converting primitives
+
+In Java, you can convert between integer values and floating-point values. Also, since every character corresponds to a number in the Unicode encoding, char types can be converted to and from the integer and floating-point types. boolean is the only primitive datatype that cannot be converted to or from any other primitive datatype.
+There are two types of conversions: widening conversion and narrowing conversion.
+A widening conversion is when a value of one datatype is converted to a value of another datatype that occupies
+more bits than the former. There is no issue of data loss in this case.
+Correspondingly, A narrowing conversion is when a value of one datatype is converted to a value of another datatype that occupies fewer bits than the former. Data loss can occur in this case.
+Java performs widening conversions automatically. But if you want to perform a narrowing conversion (if you are sure that no data loss will occur), then you can force Java to perform the conversion using a language construct known as a cast.
+
+```java
+// widening conversion
+int a = 1
+double d = a; // valid conversion
+```
+
+```java
+// Narrowing conversion
+double d = 18.96;
+int b = d; // invalid conversion, throws compile time error
+int b = (int) d; // valid conversion to int, but result is truncated(rounded down)
+// this is type casting, b is now = 18.
+```
+### Memory Consumption of primitives vs. boxed primitives
+
+Primitive - Boxed - memory - size primitive/boxed
+_________________________________________________
+boolean - Boolean - 1byte/16bytes
+
+byte    - Byte    - 1byte/16byte
+
+short   - Short   - 2bytes/16bytes
+
+char    - Char    - 2bytes/16bytes
+
+int     - Int     - 4bytes/16bytes
+
+long    - Long    - 8bytes/16bytes
+
+float   - float   - 4bytes/16bytes
+
+double  - Double  - 8bytes/16bytes
+
+Boxed objects always require 8 bytes for type and memory management, and because the size of objects is always a multiple of 8, boxed types all require 16 bytes total. In addition, each usage of a boxed object entails storing a reference which accounts for another 4 or 8 bytes, depending on the JVM and JVM options.
+
+In data-intensive operations, memory consumption can have a major impact on performance. Memory consumption grows even more when using arrays: a float[5] array will require only 32 bytes; whereas a Float[5] storing 5 distinct non-null values will require 112 bytes total (on 64 bit without compressed pointers, this increases to 152 bytes).
+
+#### Boxed value caches
+The space overheads of the boxed types can be mitigated to a degree by the boxed value caches. Some of the boxed types implement a cache of instances. For example, by default, the Integer class will cache instances to represent numbers in the range -128 to +127. This does not, however, reduce the additional cost arising from the additional memory indirection.
+
+If you create an instance of a boxed type either by autoboxing or by calling the static valueOf(primitive) method, the runtime system will attempt to use a cached value. If your application uses a lot of values in the range that is cached, then this can substantially reduce the memory penalty of using boxed types. Certainly, if you are creating boxed value instances "by hand", it is better to use valueOf rather than new. (The new operation always creates a new instance.) If, however, the majority of your values are not in the cached range, it can be faster to call new and save the cache lookup.
+
+### The double primitive
+
+A double is a double-precision 64-bit IEEE 754 floating point number
+
+    double example = -7162.37; double myDouble = 974.21; double anotherDouble = 658.7;
+    double addedDoubles = myDouble + anotherDouble; // 315.51 double subtractedDoubles = myDouble - anotherDouble; // 1632.91
+    double scientificNotationDouble = 1.2e-3; // 0.0012
+
+because of the way floating point number is stored, many numbers dont have an exact representation.
+
+    double notExact = 1.32 - 0.42; // result should be 0.9 
+    System.out.println(notExact); // 0.9000000000000001
+
+while using double is fine for most applications, neither float nor double should be used to store precise numbers such as currency. Instead, the BigDecimal class should be used.
+
+### The long primitive
+
+By default, long is a 64-bit signed integer(in java 8, it can either be signed or unsigned). Signed, it can store a minimum value of -263 and a maximum value of 263-1, and unsigned it can store a minimum value of 0 and a maximum value of 264-1
+
+    long example = -42; long myLong = 284; long anotherLong = 73;
+    //an "L" must be appended to the end of the number, because by default,
+    //numbers are assumed to be the int type. Appending an "L" makes it a long
+    //as 549755813888 (2 ^ 39) is larger than the maximum value of an int (2^31 - 1), //"L" must be appended
+    long bigNumber = 549755813888L;
+    long addedLongs = myLong + anotherLong; // 284 + 73 = 357
+    long subtractedLongs = myLong - anotherLong; // 284 - 73 = 211
+
+The minimum and maximum value of long can be found at:
+    long high = Long.MAX_VALUE; // high == 9223372036854775807L 
+    long low = Long.MIN_VALUE; // low == -9223372036854775808L
+
+**Note:** letter "L" appended at the end of long literal is case insensitive, however it is good practice to use capital as it is easier to distinct from digit one:
+
+### The boolean primitive
+
+A boolean can store one of two values, either true or false
+
+### The byte primitive
+A  byte is an 8-bits signed integer. It can store a maximum value of -27(-128), and a maximum value of 27-1(127)
+
+    byte example = -36; 
+    byte myByte = 96; 
+    byte anotherByte = 7;
+    byte addedBytes = (byte) (myByte + anotherByte); // 103
+    byte subtractedBytes = (byte) (myBytes - anotherByte); // 89
+
+The maximum and minimum value of byte can be found at:
+
+    byte high = Byte.MAX_VALUE; // high == 127 
+    byte low = Byte.MIN_VALUE; // low == -128
+
+### The short primitive
+
+A short is a 16-bit signed integer. It has a minimum value of -215(-32,768), and a maximum value of 215-1(32,767)
+
+    short example = -48; short myShort = 987; short anotherShort = 17;
+    short addedShorts = (short) (myShort + anotherShort); // 1,004 short subtractedShorts = (short) (myShort - anotherShort); // 970
+
+The maximum and minimum values of a short can be found at:
+
+    short high = Short.MAX_VALUE; // high == 32767 
+    short low = Short.MIN_VALUE; // low == -32768
+
+

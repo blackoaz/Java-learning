@@ -3,6 +3,8 @@ public class Main {
         boolean seeMe = false;
         boolean feelMe = false;
         int index;
+        
+        
 
         loop: for (index = 0; index < args.length; index++) {
             String opt = args[index];
