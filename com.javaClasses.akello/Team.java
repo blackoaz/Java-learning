@@ -6,7 +6,7 @@ public class Team {
     }
 
     public static void main(String[] args) {
-        Member myMember = new Member("Paulo", "light", 10, 1);
+        Member myMember = new Member("Akello", "light", 10, 1);
         Team myTeam = new Team(myMember);
         System.out.println(myTeam.member.getName());
         System.out.println(myTeam.member.getType());
