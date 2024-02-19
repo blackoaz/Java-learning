@@ -8,8 +8,20 @@ public class Strngtypej {
         // compareStrngCase();
         // strngintern();
         // charactasciicase();
-        //strngSplitmethod();
-        stringJoinner();
+        // strngSplitmethod();
+        // stringJoinner();
+        // String name = "My name is: ".concat("Akello");
+        // System.out.println(name);
+
+        // String datestring = "2015年11月17日";
+        // datestring = datestring.substring(0, 4) + "-" + datestring.substring(5, 7) + "-" + datestring.substring(8, 10);
+        // System.out.println(datestring);
+
+        //reversingStrings();
+        int one = 1;
+        String n = "people";
+
+        System.out.print("Different color, " + one + " " + n);
     }
 
     static void compareStrng() {
@@ -107,4 +119,18 @@ public class Strngtypej {
         sj.add("foobar");
         System.out.println(sj); // Prints "[foo, bar, foobar]"
     }
+
+    static void reversingStrings() {
+        String code = "code";
+        System.out.println(code);
+        char[] array = code.toCharArray();
+        for (int index = 0, mirroredIndex = array.length - 1; index < mirroredIndex; index++, mirroredIndex--) {
+            char temp = array[index];
+            array[index] = array[mirroredIndex];
+            array[mirroredIndex] = temp;
+        }
+        // print reversed
+        System.out.println(new String(array));
+    }
+
 }
